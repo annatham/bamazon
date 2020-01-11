@@ -34,7 +34,6 @@ function readProducts() {
 }
 // function which prompts the user for what action they should take
 function start() {
-    console.log("Displaying all products...\n");
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
     inquirer
@@ -61,7 +60,7 @@ function start() {
         // get the information of the chosen item
         var chosenItem;
         for (var i = 0; i < results.length; i++) {
-          if (results[i].item_name === answer.choice) {
+          if (results[i].product_name === answer.purchaseByID) {
             chosenItem = results[i];
           }
         }
@@ -73,12 +72,12 @@ function start() {
             "DELETE FROM products SET ? WHERE ?",
             [
               {
-                stock_quantity: answer.quantity
+                stock_quantity: stock_quantity - answer.quantity
               }
             ],
             function(error) {
               if (error) throw err;
-              console.log("Total cost is " + answer.price);
+              console.log("Total cost is " + chosenItem.price);
               start();
             }
           );
