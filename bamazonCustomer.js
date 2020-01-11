@@ -27,7 +27,7 @@ connection.connect(function(err) {
 function start() {
   inquirer
     .prompt({
-      name: "postOrBid",
+      name: "buyByID",
       type: "list",
       message: "Would you like to [POST] an auction or [BID] on an auction?",
       choices: ["POST", "BID", "EXIT"]
